@@ -1,13 +1,13 @@
-<h1>Jay Hanuman Ji</h1>
-<h1>Jay Siya Ram</h1>
+<div class="h-screen flex flex-col">
 
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+    <div class="fixed w-full z-50">
+        <app-navbar></app-navbar>
+    </div>
 
+    <div class="mt-[65px]">
+        <router-outlet />
+    </div>
 
-<router-outlet />
+    <app-footer class="mt-auto"></app-footer>
+</div>
+
