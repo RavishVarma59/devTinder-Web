@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ApiService } from '../services/api';
+import { ApiService } from '../../services/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,8 +11,10 @@ import { ApiService } from '../services/api';
 })
 export class Login implements OnInit {
 
-  email : string | undefined = "sunil@gmail.com";
-  password : string | undefined = "Sunil@123";
+  protected email : string | undefined = "sunil@gmail.com";
+  protected password : string | undefined = "Sunil@123";
+
+  private router = inject(Router);
 
   constructor(private apiService : ApiService){
 
@@ -30,6 +33,8 @@ export class Login implements OnInit {
 
     this.apiService.postData(loginApi,creds).subscribe((res) => {
       console.log(res);
+      this.apiService.userData.next(res);
+      this.router.navigate(['/']);
     });
 
   }

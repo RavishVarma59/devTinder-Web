@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
     // private apiUrl = 'https://api.example.com/data'; // Replace with your API endpoint
+
+  userData : Subject<any> = new Subject<any>();
 
   constructor(private http: HttpClient) { }
 

@@ -2,13 +2,14 @@
   <div class="flex-1">
     <a class="btn btn-ghost text-xl">Dev Tinder</a>
   </div>
-  <div class="flex gap-2">
+  <div *ngIf="userData" class="flex gap-2 items-center">
+    <div>Hi {{userData.firstName}}</div>
     <div class="dropdown dropdown-end mx-5">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
           <img
             alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            [src]="userData.photoUrl" />
         </div>
       </div>
       <ul
