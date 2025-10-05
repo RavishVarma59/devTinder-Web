@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api';
 import { Router } from '@angular/router';
+import { BASE_URL } from '../../utils/constants';
 
 @Component({
   selector: 'app-login',
@@ -29,13 +30,9 @@ export class Login implements OnInit {
       email : this.email,
       password : this.password
     }
-    const loginApi = "http://localhost:7777/login";
+    const loginApi = BASE_URL + "/login";
 
-    this.apiService.postData(loginApi,creds).subscribe((res) => {
-      console.log(res);
-      this.apiService.userData.next(res);
-      this.router.navigate(['/']);
-    });
+    this.apiService.login(loginApi,creds);
 
   }
   
