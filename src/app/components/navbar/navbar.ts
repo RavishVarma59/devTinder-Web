@@ -40,6 +40,19 @@ export class Navbar implements OnInit {
     if(item.routeLink){
       this.router.navigate([item.routeLink]);
     }
+    if(item.name === 'Logout'){
+      this.apiService.logout().subscribe((res)=>{
+        console.log(res);
+      });
+    }
+  }
+
+  goHome(event:any):void {
+      if(this.apiService.isLoggedIn()){
+        this.router.navigate(['/']);
+      } else {
+        this.router.navigate(['/login']);
+      }
   }
 
 

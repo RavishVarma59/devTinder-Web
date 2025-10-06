@@ -1,6 +1,6 @@
 <div class="navbar bg-base-100 shadow-sm">
   <div class="flex-1">
-    <a class="btn btn-ghost text-xl">Dev Tinder</a>
+    <a (click)="goHome($event)" class="btn btn-ghost text-xl">Dev Tinder</a>
   </div>
   <div *ngIf="userData" class="flex gap-2 items-center">
     <div>Welcome, {{userData.firstName | titlecase}}</div>

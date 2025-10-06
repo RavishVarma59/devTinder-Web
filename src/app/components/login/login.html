@@ -9,6 +9,8 @@
   <label class="label">Password</label>
   <input type="password" class="input" [(ngModel)]="password" placeholder="Password" />
 
+  <p *ngIf="loginError" class="text-red-500">{{loginError}}</p>
+
   <button class="btn btn-neutral mt-4" (click)="submitForm()">Login</button>
 </fieldset>
 </div>

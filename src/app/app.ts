@@ -18,7 +18,9 @@ export class App implements OnInit {
 
   }
   ngOnInit(): void {
-    this.apiService.restoreUser();
+    if(!this.apiService.isLoggedIn()){
+      this.apiService.restoreUser().subscribe();
+    }
   }
 
 }
