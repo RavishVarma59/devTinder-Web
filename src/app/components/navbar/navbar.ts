@@ -19,7 +19,8 @@ export class Navbar implements OnInit {
   private router= inject(Router);
   profileDropdown = [
     {name : "Profile", badge : "New", routeLink : "/profile"},
-    {name : "Settings" },
+    {name : "Connections", routeLink : "/connections" },
+    {name : "Requests", routeLink : "/requests" },
     {name : "Logout"}
   ]
   constructor(private apiService: ApiService){  }

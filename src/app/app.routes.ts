@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { App } from './app';
 import { Profile } from './components/profile/profile';
 import { Login } from './components/login/login';
 import { Feed } from './components/feed/feed';
@@ -24,6 +23,14 @@ export const routes: Routes = [
                 path: "profile",
                 component: Profile
             },
+            {
+                path: "requests",
+                loadComponent: ()=> import("./components/requests/requests").then((M) => M.Requests)
+            },
+            {
+                path: "connections",
+                loadComponent : () => import("./components/connections/connections").then(M=>M.Connections)
+            }
         ]
     },
     {
