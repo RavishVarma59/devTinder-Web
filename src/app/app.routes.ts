@@ -4,22 +4,28 @@ import { Profile } from './components/profile/profile';
 import { Login } from './components/login/login';
 import { Feed } from './components/feed/feed';
 import { NotFoundError } from 'rxjs';
-import { loginGuard } from './guards/login-guard';
+import { loginGuard, authGuard } from './guards/login-guard';
 
 export const routes: Routes = [
     {
-        path: '',
-        component: Feed
-    },
-    {
-        path : "login",
-        component : Login,
+        path: "login",
+        component: Login,
         canActivate: [loginGuard]
     },
     {
-        path : "profile",
-        component : Profile
-    }, 
+        path: '',
+        canActivate: [authGuard],
+        children: [
+            {
+                path: "",
+                component: Feed
+            },
+            {
+                path: "profile",
+                component: Profile
+            },
+        ]
+    },
     {
         path: "**",
         component: NotFoundError

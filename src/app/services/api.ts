@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class ApiService {
     // private apiUrl = 'https://api.example.com/data'; // Replace with your API endpoint
 
-  private userData  = new BehaviorSubject<any>(null);
+  userData  = new BehaviorSubject<any>(null);
   user$ = this.userData.asObservable();
 
   private router = inject(Router);
@@ -24,7 +24,16 @@ export class ApiService {
   }
 
   isLoggedIn(): boolean {
-  return !!this.userData.value;
+  return !!localStorage.getItem("isLoggedIn");
+  }
+
+  private setUserDetails(user:any):void{
+    this.userData.next(user);
+    if(!!user){
+      localStorage.setItem("isLoggedIn","true");
+    } else{
+      localStorage.removeItem("isLoggedIn");
+    }
   }
 
   restoreUser(): Observable<any> {
@@ -33,12 +42,12 @@ export class ApiService {
       tap({
         next: (res) => {
           const user = res?.data || null;
-          this.userData.next(user);
+          this.setUserDetails(user);
         }
       }),
       map(res => res?.data || null),
       catchError((err) => {
-        this.userData.next(null);
+        this.setUserDetails(null);
         const currentUrl = this.router.url;
         if (err.status === 401 && currentUrl !== '/login') {
           this.router.navigate(['/login']);
@@ -54,11 +63,11 @@ export class ApiService {
       tap({
       next : (res) => {
         const user = res.data;
-        this.userData.next(user);
+        this.setUserDetails(user);
         this.router.navigate(['/']);
       }, 
       error: (error) => {
-        this.userData.next(null);
+        this.setUserDetails(null);
         console.error(error);
       }
     }));;
@@ -69,8 +78,8 @@ export class ApiService {
     return this.http.post(logoutUrl, {}, {withCredentials: true}).pipe(
       tap({
         next: (res)=>{
-            this.userData.next(null);
-            this.router.navigate(['/login']);
+          this.setUserDetails(null);
+          this.router.navigate(['/login']);
         },
         error: (err)=>{
           console.error(err);

@@ -1,1 +1,50 @@
-<p>profile works!</p>
+<div class="flex justify-center my-10" *ngIf="userProfile">
+    <div class="flex justify-center mx-5">
+        <fieldset class="fieldset shadow-lg bg-base-300 border-base-300 rounded-box w-xs border p-4">
+
+            <h1 class="font-bold text-center">Edit </h1>
+
+            <label class="label mt-2">FirstName</label>
+            <input type="text" class="input placeholder-gray-300" [(ngModel)]="firstName" placeholder="firstName" />
+
+            <label class="label mt-2">LastName</label>
+            <input type="text" class="input placeholder-gray-300" [(ngModel)]="lastName" placeholder="lastName" />
+            
+            <label class="label mt-2">Gender</label>
+            <dropdown [dropdownValues]="genderDropdown" (whenSelected)="whenSelected($event)"></dropdown>
+            
+            <label class="label mt-2">PhotoUrl</label>
+            <input type="text" class="input placeholder-gray-300" [(ngModel)]="photoUrl" placeholder="photoUrl" />
+
+
+            <label class="label mt-2">Age</label>
+            <input type="text" class="input placeholder-gray-300" [(ngModel)]="age" placeholder="age" />
+
+            <label class="label mt-2">About</label>
+            <!-- <input type="text" class="input placeholder-gray-300" [(ngModel)]="about" placeholder="about" /> -->
+            <textarea class="textarea placeholder-gray-300" [(ngModel)]="about" placeholder="about"></textarea>
+
+            <!-- <p *ngIf="loginError" class="text-red-500">{{loginError}}</p> -->
+
+            <p *ngIf="errorMsg" class="text-red-500">{{errorMsg}}</p>
+
+            <button class="btn btn-neutral mt-4" (click)="submitForm()">Save Profile</button>
+        </fieldset>
+    </div>
+    <div>
+        <h2 class="font-mono mb-5 text-center w-full">How Your Profile Look Others </h2>
+        <card 
+        [firstName]="firstName" 
+        [photoUrl]="photoUrl" 
+        [about]="about" 
+        [age]="age" 
+        [gender]="gender"></card>
+    </div>
+</div>
+
+<div *ngIf="successAlert" class="duration-300 toast toast-top toast-center mt-16">
+
+  <div class="alert alert-success">
+    <span>Message sent successfully.</span>
+  </div>
+</div>

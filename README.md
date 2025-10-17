@@ -11,4 +11,6 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 - update profile photo and user name once user information received from login api.
 - If user is logged in , on refresh page stay logged in
 - If token not present , redirect to login page
-- 
+- connections page
+- request page
+- accept and reject request from request page

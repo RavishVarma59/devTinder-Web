@@ -1,0 +1,22 @@
+<div class="card  bg-pink-100 w-96 shadow-sm">
+  <figure class="bg-linear-to-bl from-violet-500 to-fuchsia-500">
+    <img *ngIf="photoUrl"
+      src="{{photoUrl}}"
+      alt="Shoes" />
+  </figure>
+  <!-- <div class="divider"></div> -->
+  <div class="card-body">
+    <h2 class="card-title">{{firstName}} </h2>
+    <div >
+    <span *ngIf="age" >{{age}} </span>
+    <span *ngIf="gender" >{{gender}}</span>
+    </div>
+
+    
+    <p *ngIf="about">{{about}}</p>
+    <div class="card-actions justify-end">
+      <button class="btn btn-primary">Ignore</button>
+      <button class="btn btn-secondary">Interested</button>
+    </div>
+  </div>
+</div>

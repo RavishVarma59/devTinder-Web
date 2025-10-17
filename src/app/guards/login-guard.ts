@@ -7,20 +7,23 @@ import { map, Observable, of, tap } from 'rxjs';
 export const loginGuard: CanActivateFn = (route, state):Observable<any> => {
   const authService = inject(ApiService);
   const router = inject(Router);
+  console.log("login auth")
   if(authService.isLoggedIn()){
     router.navigate(['/']);
     return of(false) ;
+  } else{
+    return of(true);
   }
-  
-  return authService.restoreUser().pipe(
-    map((res)=>{
-      if(res){
-        router.navigate(['/']);
-        return false;
-      } else {
-        return true;
-      }
-    })
-  )
-  
 };
+
+export const authGuard : CanActivateFn = (route,state):Observable<any>=>{
+    const authService = inject(ApiService);
+    console.log("home ")
+    const router = inject(Router);
+    if(!authService.isLoggedIn()){
+      router.navigate(['/login']);
+      return of(false) ;
+    } else{
+      return of(true);
+    }
+}
