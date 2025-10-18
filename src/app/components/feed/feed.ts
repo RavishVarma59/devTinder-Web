@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { BASE_URL } from '../../utils/constants';
-import { catchError, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, of, Subject, tap } from 'rxjs';
 import { Card } from '../card/card';
 import { CommonModule } from '@angular/common';
 
@@ -22,30 +22,70 @@ export class Feed implements OnInit {
   age: any;
   gender: any;
   about: any;
+  _id:any;
+
+  userCardSubject = new BehaviorSubject<any>(null);
+  removeFeedDataSubject = new Subject<any>();
 
   constructor(private http: HttpClient) {
 
   }
   ngOnInit(): void {
+    this.getFeedData();
+    this.cardDataSubscriber();
+    this.removeFromFeedData();
+  }
+
+  getFeedData(): void {
     this.http.get(this.feedApi, { withCredentials: true }).pipe(
       tap({
         next: (res: any) => {
           console.log("res ", res);
-          this.feedData = res?.data;
-
-          this.firstName = this.feedData[0].firstName;
-          this.lastName = this.feedData[0].lastName;
-          this.photoUrl = this.feedData[0].photoUrl;
-          this.age = this.feedData[0].age;
-          this.about = this.feedData[0].about;
-          this.gender = this.feedData[0].gender;
+          this.feedData = res?.data || [];
+          if (this.feedData && this.feedData.length > 0) {
+            this.userCardSubject.next(this.feedData[0]);
+          } else {
+            this.userCardSubject.next({});
+          }
         }
       }),
       catchError((err) => {
         console.log(err);
+        this.feedData = [];
         return of(null)
       })
     ).subscribe();
+  }
+
+  cardDataSubscriber(): void{
+    this.userCardSubject.subscribe((res) => {
+      this.firstName = res?.firstName || null;
+      this.lastName = res?.lastName || null;
+      this.photoUrl = res?.photoUrl || null;
+      this.age = res?.age || null;
+      this.about = res?.about || null;
+      this.gender = res?.gender || null;
+      this._id = res?._id || null;
+    });
+  }
+
+  removeFromFeedData(): void{
+    this.removeFeedDataSubject.subscribe((id)=>{
+      if(id){
+        this.feedData = this.feedData.filter((res:any)=>res._id !== id);
+      }
+      if(this.feedData && this.feedData.length > 0){
+        this.userCardSubject.next(this.feedData[0]);
+      } else {
+        this.userCardSubject.next(null);
+      }
+    })
+  }
+
+  removeCardFromFeed(id:any){
+    if(id){
+      this.removeFeedDataSubject.next(id);
+    }
   }
 
 }

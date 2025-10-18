@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule,FormsModule,Card, Dropdown],
+  imports: [CommonModule, FormsModule, Card, Dropdown],
   templateUrl: './profile.html',
   styleUrl: './profile.css'
 })
@@ -23,8 +23,8 @@ export class Profile implements OnInit {
   gender: any;
   about: any;
 
-  errorMsg : any;
-  successAlert:boolean = false;
+  errorMsg: any;
+  successAlert: boolean = false;
 
   genderDropdown: any = [
     { value: "male", selected: false },
@@ -33,7 +33,7 @@ export class Profile implements OnInit {
   ];
 
   constructor(private apiService: ApiService,
-    private https : HttpClient
+    private https: HttpClient
   ) {
 
   }
@@ -58,34 +58,36 @@ export class Profile implements OnInit {
     })
   }
 
-  whenSelected(item:string){
+  whenSelected(item: string) {
     this.gender = item;
   }
 
-  submitForm(){
-    const saveUrl = BASE_URL+ "/profile/edit";
+  submitForm() {
+    const saveUrl = BASE_URL + "/profile/edit";
     this.errorMsg = "";
-
-    this.https.patch(saveUrl,{
+    const body = {
       "firstName": this.firstName,
-      "lastName" : this.lastName,
+      "lastName": this.lastName,
       "about": this.about,
-      "photoUrl":this.photoUrl,
+      "photoUrl": this.photoUrl,
       "age": this.age,
-      "gender":this.gender
-    },{withCredentials:true}).subscribe({
-      next:(res:any)=>{
+      "gender": this.gender
+    }
+
+    this.https.patch(saveUrl, body , { withCredentials: true }).subscribe({
+      next: (res: any) => {
         this.apiService.userData.next(res.user);
         this.successAlert = true;
         setTimeout(() => {
           this.successAlert = false;
         }, 3000);
-      console.log(res);
-    },
-    error:(err)=>{
-      this.errorMsg = err.error;
-      console.error(err);
-    }})
+        console.log(res);
+      },
+      error: (err) => {
+        this.errorMsg = err.error;
+        console.error(err);
+      }
+    })
 
   }
 

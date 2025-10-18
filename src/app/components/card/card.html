@@ -1,22 +1,22 @@
-<div class="card  bg-pink-100 w-96 shadow-sm">
-  <figure class="bg-linear-to-bl from-violet-500 to-fuchsia-500">
+<div class="card h-[28rem]  bg-pink-100 w-80 shadow-sm">
+  <figure class="bg-linear-to-bl h-1/2 from-violet-500 to-fuchsia-500">
     <img *ngIf="photoUrl"
       src="{{photoUrl}}"
-      alt="Shoes" />
+      alt="User Photo" class="h-full"/>
   </figure>
   <!-- <div class="divider"></div> -->
-  <div class="card-body">
-    <h2 class="card-title">{{firstName}} </h2>
+  <div class="card-body pb-4 h-1/2">
+    <h2 class="card-title text-xl">{{firstName | titlecase}} </h2>
     <div >
     <span *ngIf="age" >{{age}} </span>
     <span *ngIf="gender" >{{gender}}</span>
     </div>
 
     
-    <p *ngIf="about">{{about}}</p>
+    <p *ngIf="about" class="line-clamp-3 text-sm leading-6 text-gray-500 dark:text-gray-400">{{about}}</p>
     <div class="card-actions justify-end">
-      <button class="btn btn-primary">Ignore</button>
-      <button class="btn btn-secondary">Interested</button>
+      <button class="btn btn-primary" (click)="actionOnCard('ignore')">Ignore</button>
+      <button class="btn btn-secondary"  (click)="actionOnCard('interested')">Interested</button>
     </div>
   </div>
 </div>
