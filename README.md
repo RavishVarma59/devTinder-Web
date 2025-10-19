@@ -14,3 +14,11 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 - connections page
 - request page
 - accept and reject request from request page
+
+# Deployment
+
+- sign up aws
+- create EC2 instance
+- chmod 400 DevTinder-secret.pem
+- connect to EC2 instance
+

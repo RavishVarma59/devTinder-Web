@@ -70,7 +70,7 @@ export class ApiService {
         this.setUserDetails(null);
         console.error(error);
       }
-    }));;
+    }));
   }
 
   logout():Observable<any>{

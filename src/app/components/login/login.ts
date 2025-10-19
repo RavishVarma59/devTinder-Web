@@ -13,41 +13,49 @@ import { CommonModule } from '@angular/common';
 })
 export class Login implements OnInit {
 
-  protected email : string | undefined = "sunil@gmail.com";
-  protected password : string | undefined = "Sunil@123";
+  isLoggin: boolean = true;
 
-  loginError : string = "";
+  firstName: string | undefined;
+  lastName: string | undefined;
+
+  protected email: string | undefined;
+  protected password: string | undefined;
+
+  loginError: string = "";
 
   private router = inject(Router);
 
-  constructor(private apiService : ApiService){
+  constructor(private apiService: ApiService) {
 
   }
   ngOnInit(): void {
   }
 
-  submitForm(){
-    console.log("email : ",this.email);
-    console.log("Password : ",this.password);
-    const creds = {
-      email : this.email,
-      password : this.password
-    }
-    const loginApi = BASE_URL + "/login";
 
-    this.apiService.login(loginApi,creds).subscribe({
-      next: (res)=> {
+  submitForm(): void {
+    const creds = {
+      "firstName": this.firstName,
+      "lastName": this.lastName,
+      "email": this.email,
+      "password": this.password
+    }
+    const loginApi = this.isLoggin ? BASE_URL + "/login" :
+      BASE_URL + "/signup";
+
+    this.apiService.login(loginApi, creds).subscribe({
+      next: (res) => {
+        console.log(res)
         this.loginError = "";
-       }, 
-      error: (err)=> {
+      },
+      error: (err) => {
         console.log("error : ", err.error);
         this.loginError = err?.error;
       }
-    }
-    );
-
+    });
   }
-  
 
-
+  toggleLogin(event: any) {
+    this.loginError = "";
+    this.isLoggin = !this.isLoggin;
+  }
 }
