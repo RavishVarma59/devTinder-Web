@@ -33,6 +33,9 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
     - sudo systemctl enable nginx
     - copy code from dist (build folder) to /var/www/html/
         - sudo scp -r dist/* /var/www/html/
+
+    - sudo nginx -t
+    - sudo systemctl reload nginx
     - enable port :80 of your instance
 
 - BackEnd
@@ -44,6 +47,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
         - To get list : pm2 list
         - Stop the Application : pm2 stop <name>
         - Delete the process : pm2 delete <name>
+        - Restart the Process : pm2 restart <name>
         - Custom Name to process : pm2 start npm --name "<name>" -- start
     - nginx config file : sudo nano /etc/nginx/sites-available/default
     - config /api/ to backend port 7777
@@ -82,3 +86,37 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
         }
 
     - change BASE_URL to "/api"
+
+# Domain name =>
+    - sign up godaddy
+    - buy any domain name
+    - sign up cloud flare
+    - copy two nameserver value from cloudflare and past in nameserver of godaddy
+    - now check in cloudflare is domain name is verified
+    - DNS records: namastedev.in = 3.110.183.89
+    - enable ssl for website
+
+# AWS Sending Mail via SES
+    
+    - Create IAM user
+    - Give access to amazoneSESFullACCESS
+    - Amazon SES : create identity ( domain, email)
+    - verify your domain name
+    - verify your email
+    - Install aws sdk v3 
+    - code example : https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/ses
+    - setup SES Client
+    - Access Credentials should be created in IAM under securityCredentials Tab
+    - Write Code for SESClient
+    - Write Code for Sending Email Address
+    - Make the email dynamic by passing more param to run function
+
+# Create env file
+
+    - install donenv package : npm install dotenv --save
+    - create .env file
+    - add secret key in .env file like :
+        - JWT_TOKEN = '<token>'
+    - add : require('dotenv').config()  in app.js file only once
+    - access env variable in any file like : process.env.JWT_TOKEN
+
