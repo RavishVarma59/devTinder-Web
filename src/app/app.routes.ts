@@ -26,17 +26,18 @@ export const routes: Routes = [
             },
             {
                 path: "requests",
-                loadComponent: ()=> import("./components/requests/requests").then((M) => M.Requests)
+                loadComponent: () => import("./components/requests/requests").then((M) => M.Requests)
             },
             {
                 path: "connections",
-                loadComponent : () => import("./components/connections/connections").then(M=>M.Connections)
+                loadComponent: () => import("./components/connections/connections").then(M => M.Connections)
             },
-            {
-                path: "pages",
-                loadChildren : () => import("./components/policy/policy-module").then(M=>M.PolicyModule)
-            }
+
         ]
+    },
+    {
+        path: "pages",
+        loadChildren: () => import("./components/policy/policy-module").then(M => M.PolicyModule)
     },
     {
         path: "**",
