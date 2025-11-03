@@ -4,6 +4,7 @@ import { Login } from './components/login/login';
 import { Feed } from './components/feed/feed';
 import { NotFoundError } from 'rxjs';
 import { loginGuard, authGuard } from './guards/login-guard';
+import { Privacy } from './components/policy/privacy/privacy';
 
 export const routes: Routes = [
     {
@@ -30,6 +31,10 @@ export const routes: Routes = [
             {
                 path: "connections",
                 loadComponent : () => import("./components/connections/connections").then(M=>M.Connections)
+            },
+            {
+                path: "pages",
+                loadChildren : () => import("./components/policy/policy-module").then(M=>M.PolicyModule)
             }
         ]
     },

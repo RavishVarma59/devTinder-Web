@@ -120,3 +120,22 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
     - add : require('dotenv').config()  in app.js file only once
     - access env variable in any file like : process.env.JWT_TOKEN
 
+# Cron jobs 
+
+    - install cron-node package : npm install cron-node --save
+    - schedule a job in cron ( add require(../utils/cronjob.js) in app.js file)
+    - install the date-fns package : npm install date-fns --save
+    - find all the email Id who recieve friend request yesterda
+    - send email
+    - Explore queue machenism to send bulk emails
+    - Amazon SES bulk emails
+    - Make send Email fun dynamic
+    - bee-queue & bull npm package
+
+# Razorpay Payment Gateway Integration
+
+    - 
+
+# Policy pages
+
+    - Created Privacy, Contact us, Terms, Refund, Shipping pages
