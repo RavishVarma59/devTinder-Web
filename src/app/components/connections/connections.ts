@@ -34,6 +34,13 @@ export class Connections implements OnInit {
       }
     })
 
-
   }
+
+  chatWithUser(item:any){
+    if(item?._id){
+      window.location.href = `/chat/${item._id}`
+    }
+  }
+
+
 }
