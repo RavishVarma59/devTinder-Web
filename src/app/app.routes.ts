@@ -5,6 +5,7 @@ import { Feed } from './components/feed/feed';
 import { NotFoundError } from 'rxjs';
 import { loginGuard, authGuard } from './guards/login-guard';
 import { Privacy } from './components/policy/privacy/privacy';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
     {
@@ -32,6 +33,10 @@ export const routes: Routes = [
                 path: "connections",
                 loadComponent: () => import("./components/connections/connections").then(M => M.Connections)
             },
+            {
+                path: "chat/:userId",
+                loadComponent: () => import("./components/chat/chat").then(M=> M.Chat)
+            }
 
         ]
     },
@@ -40,7 +45,11 @@ export const routes: Routes = [
         loadChildren: () => import("./components/policy/policy-module").then(M => M.PolicyModule)
     },
     {
+        path: "page-not-found",
+        component: PageNotFoundComponent
+    },
+    {
         path: "**",
-        component: NotFoundError
+        redirectTo: "page-not-found"
     }
 ];
