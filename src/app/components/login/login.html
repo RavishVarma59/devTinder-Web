@@ -15,7 +15,7 @@
   <input type="email" class="input placeholder-gray-300" [(ngModel)]="email" placeholder="Email" />
 
   <label class="label">Password</label>
-  <input type="password" class="input placeholder-gray-300" [(ngModel)]="password" placeholder="Password" />
+  <input type="password" class="input placeholder-gray-300" [(ngModel)]="password" (keyup.enter)="submitForm()" placeholder="Password" />
 
   <p *ngIf="loginError" class="text-red-500">{{loginError}}</p>
 

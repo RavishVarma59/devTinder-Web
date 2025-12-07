@@ -3,6 +3,7 @@ import { BASE_URL } from '../../utils/constants';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { tap } from 'rxjs';
+import { ChatService } from '../chat/chat.service';
 
 @Component({
   selector: 'app-connections',
@@ -15,7 +16,7 @@ export class Connections implements OnInit {
   connections: any[] = [];
   inProgress: boolean = false;
 
-  constructor(private _https: HttpClient) {
+  constructor(private _https: HttpClient, private chatService: ChatService) {
 
   }
   ngOnInit(): void {
@@ -38,6 +39,7 @@ export class Connections implements OnInit {
 
   chatWithUser(item:any){
     if(item?._id){
+      this.chatService.chatWithUser.next(item);
       window.location.href = `/chat/${item._id}`
     }
   }
