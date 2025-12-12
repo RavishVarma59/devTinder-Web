@@ -40,7 +40,6 @@ export class Feed implements OnInit {
     this.http.get(this.feedApi, { withCredentials: true }).pipe(
       tap({
         next: (res: any) => {
-          console.log("res ", res);
           this.feedData = res?.data || [];
           if (this.feedData && this.feedData.length > 0) {
             this.userCardSubject.next(this.feedData[0]);

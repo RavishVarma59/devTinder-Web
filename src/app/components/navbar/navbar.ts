@@ -37,13 +37,11 @@ export class Navbar implements OnInit {
 
   dropdownItemClicked(item:any){
     (document.activeElement as HTMLElement)?.blur();
-    console.log(item);
     if(item.routeLink){
       this.router.navigate([item.routeLink]);
     }
     if(item.name === 'Logout'){
       this.apiService.logout().subscribe((res)=>{
-        console.log(res);
       });
     }
   }

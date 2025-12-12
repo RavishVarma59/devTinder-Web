@@ -44,7 +44,6 @@ export class Login implements OnInit {
 
     this.apiService.login(loginApi, creds).subscribe({
       next: (res) => {
-        console.log(res)
         this.loginError = "";
       },
       error: (err) => {

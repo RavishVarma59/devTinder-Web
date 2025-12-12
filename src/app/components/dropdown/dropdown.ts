@@ -24,7 +24,6 @@ export class Dropdown implements OnInit {
 
     onSelectChange(event: Event) {
     const value = (event.target as HTMLSelectElement).value;
-    console.log(value)
     this.whenSelected.emit(value); 
   }
 

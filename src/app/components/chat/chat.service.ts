@@ -7,5 +7,6 @@ export class ChatService {
     chatWithUser$ = this.chatWithUser.asObservable();
     
     constructor(){
+       
     }
 }

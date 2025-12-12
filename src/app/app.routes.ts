@@ -6,6 +6,7 @@ import { NotFoundError } from 'rxjs';
 import { loginGuard, authGuard } from './guards/login-guard';
 import { Privacy } from './components/policy/privacy/privacy';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { Chat } from './components/chat/chat';
 
 export const routes: Routes = [
     {
@@ -34,8 +35,9 @@ export const routes: Routes = [
                 loadComponent: () => import("./components/connections/connections").then(M => M.Connections)
             },
             {
-                path: "chat/:userId",
-                loadComponent: () => import("./components/chat/chat").then(M=> M.Chat)
+                path: "chat/with/:name/:userId",
+                component: Chat
+                // loadComponent: () => import("./components/chat/chat").then(M=> M.Chat)
             }
 
         ]

@@ -81,7 +81,6 @@ export class Profile implements OnInit {
         setTimeout(() => {
           this.successAlert = false;
         }, 3000);
-        console.log(res);
       },
       error: (err) => {
         this.errorMsg = err.error;

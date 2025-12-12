@@ -40,7 +40,8 @@ export class Connections implements OnInit {
   chatWithUser(item:any){
     if(item?._id){
       this.chatService.chatWithUser.next(item);
-      window.location.href = `/chat/${item._id}`
+      const name = (item.firstName + " " + item.lastName).trim();
+      window.location.href = `/chat/with/${name}/${item._id}`
     }
   }
 

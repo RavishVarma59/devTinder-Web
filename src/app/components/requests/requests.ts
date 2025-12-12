@@ -32,7 +32,6 @@ export class Requests implements OnInit{
         //   }
         // });
         this.requests = resp;
-        console.log(res);
       },
       error: (err)=>{
         console.error(err);
@@ -44,7 +43,6 @@ export class Requests implements OnInit{
   reviewRequest(status:string,_id:any){
 
     const reviewUrl = BASE_URL + "/request/review/" + status + "/" + _id;
-    console.log(typeof(_id))
 
     this._https.post(reviewUrl,{},{withCredentials:true}).pipe(tap((res)=>{
 
@@ -53,7 +51,6 @@ export class Requests implements OnInit{
         this.requests = this.requests.filter((value)=>{
           return value?._id !== _id;
         })
-        console.log(res);
       },
       error: (err)=>{
         console.error(err);

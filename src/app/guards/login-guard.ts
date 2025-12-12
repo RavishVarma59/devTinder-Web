@@ -7,7 +7,6 @@ import { map, Observable, of, tap } from 'rxjs';
 export const loginGuard: CanActivateFn = (route, state):Observable<any> => {
   const authService = inject(ApiService);
   const router = inject(Router);
-  console.log("login auth")
   if(authService.isLoggedIn()){
     router.navigate(['/']);
     return of(false) ;
@@ -18,7 +17,6 @@ export const loginGuard: CanActivateFn = (route, state):Observable<any> => {
 
 export const authGuard : CanActivateFn = (route,state):Observable<any>=>{
     const authService = inject(ApiService);
-    console.log("home ")
     const router = inject(Router);
     if(!authService.isLoggedIn()){
       router.navigate(['/login']);
