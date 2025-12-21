@@ -3,8 +3,9 @@
         <!-- Main Chat Area -->
         <div class="flex chatbot  flex-col w-3/4 mx-auto shadow-2xl/30 bg-[#FFF2EB]">
             <!-- Chat Header -->
-            <header class="p-4 sticky text-gray-700 bg-[#FFE8CD] shadow-md">
-                <h1 class="text-2xl font-semibold">{{chatWithUserName | titlecase }}</h1>
+            <header class="p-4 sticky flex gap-3 text-gray-700 bg-[#FFE8CD] shadow-md">
+              <img *ngIf="chatWithUserInfo?.photoUrl" src="{{chatWithUserInfo?.photoUrl}}" class="w-10 h-10 rounded-full">
+                <h1 class="text-2xl font-semibold">{{(chatWithUserInfo.firstName+ " " + chatWithUserInfo?.lastName) | titlecase }}</h1>
             </header>
             
             <!-- Chat Messages -->
@@ -12,24 +13,24 @@
                 <div  *ngFor="let item of chatList">
 
                     <!-- Incoming Message -->
-                    <div *ngIf="item.userType == 'from'" class="flex items-center mb-4 cursor-pointer">
-                      <div class="w-9 h-9 rounded-full flex items-center justify-center mr-2">
-                        <img *ngIf="item.img; else nameAvatar" src="item.img" class="w-8 h-8 rounded-full">
+                    <div *ngIf="item.userType == 'from'" class="flex w-full items-center mb-4 lg:w-7/12">
+                      <div class="w-9 h-9  shrink-0 rounded-full flex items-center justify-center mr-2">
+                        <img *ngIf="item.img; else nameAvatar" src="{{item.img}}" class="w-8 h-8 rounded-full">
                         <ng-template #nameAvatar >
                             <p class=" bg-amber-300 flex h-8 items-center justify-center rounded-full w-8">{{item.name}}</p></ng-template>
                       </div>
-                      <div class="flex max-w-96 bg-gray-100 rounded-lg p-3 gap-3">
+                      <div class="flex  bg-gray-100 rounded-lg p-2">
                         <p class="text-gray-700">{{item.message}}</p>
                       </div>
                     </div>
                     
                     <!-- Outgoing Message -->
-                    <div *ngIf="item.userType == 'to'" class="flex justify-end mb-4 cursor-pointer">
-                      <div class="flex max-w-96 bg-indigo-500 text-white rounded-lg p-3 gap-3">
+                    <div *ngIf="item.userType == 'to'" class="ml-auto w-full  flex justify-end mb-4 md:w-7/12">
+                      <div class="flex bg-indigo-500 text-white rounded-lg p-2">
                         <p>{{item.message}}</p>
                       </div>
-                      <div class="w-9 h-9 rounded-full flex items-center justify-center ml-2">
-                        <img *ngIf="item.img; else nameAvatar" src="item.img" class="w-8 h-8 rounded-full">
+                      <div class="w-9 h-9 rounded-full shrink-0 flex items-center justify-center ml-2">
+                        <img *ngIf="item.img; else nameAvatar" src="{{item.img}}" class="w-8 h-8 rounded-full">
                     <ng-template #nameAvatar class=" font-black">
                       <p class=" bg-amber-300 flex h-8 items-center justify-center rounded-full w-8">{{item.name}}</p>
                     </ng-template>  

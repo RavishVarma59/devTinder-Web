@@ -18,6 +18,10 @@ export class Chat implements  AfterViewInit, OnInit, OnDestroy{
 
   chatWithUserId: string | undefined
   chatWithUserName: any;
+
+  userInfo: any;
+  chatWithUserInfo: any;
+
   userId: any;
   chatList: any = [];
   newMessage = '';
@@ -37,44 +41,78 @@ export class Chat implements  AfterViewInit, OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.socket.disconnect()
+    this.socket.disconnect();
   }
 
   ngOnInit(): void {
-    this.chatService.chatWithUser$.subscribe((res)=>{
-    })
+    this.chatService.getChatHistory(this.chatWithUserId).subscribe((res) => {
+
+      const peopleInChat = res?.peopleInChats || [];
+      peopleInChat.forEach((p: any) => {
+        if (p._id === this.chatWithUserId) {
+          this.chatWithUserInfo = p;
+        }
+      });
+
+      const messages = res?.messages || [];
+
+      messages.forEach((m: any) => {
+
+        const { _id, firstName, lastName, photoUrl } = m?.senderId || {};
+        const messageText = m?.text || "";
+        const name = firstName + " " + lastName;
+
+        if (_id === this.userInfo._id) {
+          this.chatList.push({
+            name: this.getInitials(name), message: messageText, userType: "to", img: photoUrl
+          },)
+        } else {
+          this.chatList.push({
+            name: this.getInitials(name), message: messageText, userType: "from", img: photoUrl
+          },)
+        }
+      });
+
+      setTimeout(() => {
+            this.scrollToBottom(this.chats);
+          }, 100);
+
+    });
 
     this._userService.user$.subscribe((user) => {
-
       if (user?._id) {
-        this.userId = user;
+        this.userInfo = user;
+        this.setUpSocketListener();
+      }
+    });
 
-        this.socket.emit("joinchat", this.userId?._id, this.chatWithUserId);
+    
+  }
+
+  setUpSocketListener(){
+            this.socket.emit("joinchat", this.userInfo?._id, this.chatWithUserId);
 
         this.socket.on("receiveMessage", (arg) => {
           const senderUserId = arg?.userId;
           const message = arg?.text;
           const name = arg?.name;
-          if(senderUserId === this.userId?._id){
+          if(senderUserId === this.userInfo?._id){
             this.chatList.push({ 
-              name: this.getInitials(name), message: message, userType: "to", img: "" },)
+              name: this.getInitials(name), message: message, userType: "to", img: this.userInfo?.photoUrl },)
           } else {
             this.chatList.push({ 
-              name: this.getInitials(name), message: message, userType: "from", img: "" },)
+              name: this.getInitials(name), message: message, userType: "from", img: this.chatWithUserInfo?.photoUrl },)
           }
           setTimeout(() => {
             this.scrollToBottom(this.chats);
           }, 0);
         })
-
-      }
-    })
   }
 
   send(event: any) {
     if(this.newMessage){
-      const senderName = (this.userId?.firstName + " " + this.userId?.lastName).trim();
-      this.socket.emit("sendMessage", this.userId?._id, this.chatWithUserId, this.newMessage,senderName);
+      const senderName = (this.userInfo?.firstName + " " + this.userInfo?.lastName).trim();
+      this.socket.emit("sendMessage", this.userInfo?._id, this.chatWithUserId, this.newMessage,senderName);
       this.newMessage = "";
     }
   }
@@ -92,9 +130,9 @@ export class Chat implements  AfterViewInit, OnInit, OnDestroy{
 
 
 
-  getInitials(firstName: string,lastName?: string) {
+  getInitials(name: string) {
     let initials = "";
-    let nameArray = firstName.split(" ");
+    let nameArray = name.split(" ");
     nameArray.forEach((n)=>{
       if(n && n.charAt(0)){
         initials += n.charAt(0);

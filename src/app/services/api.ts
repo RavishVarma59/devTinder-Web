@@ -56,6 +56,11 @@ export class ApiService {
       }));
   }
 
+  getUserDetails(userId: any): Observable<any> {
+    const viewUserProfile = BASE_URL + "/getUserDetails";
+    return this.http.post<any>(viewUserProfile, { userId }, { withCredentials: true });
+  }
+
   login(apiUrl:string ,item: any): Observable<any> {
     return this.http.post<any>(apiUrl, item,{
       withCredentials: true
