@@ -5,7 +5,7 @@
             <!-- Chat Header -->
             <header class="p-4 sticky flex gap-3 text-gray-700 bg-[#FFE8CD] shadow-md">
               <img *ngIf="chatWithUserInfo?.photoUrl" src="{{chatWithUserInfo?.photoUrl}}" class="w-10 h-10 rounded-full">
-                <h1 class="text-2xl font-semibold">{{(chatWithUserInfo.firstName+ " " + chatWithUserInfo?.lastName) | titlecase }}</h1>
+                <h1 class="text-2xl font-semibold">{{(chatWithUserInfo?.firstName+ " " + chatWithUserInfo?.lastName) | titlecase }}</h1>
             </header>
             
             <!-- Chat Messages -->

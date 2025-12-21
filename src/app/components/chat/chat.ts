@@ -7,6 +7,7 @@ import { BASE_URL } from '../../utils/constants';
 import { ApiService } from '../../services/api';
 import { ChatService } from './chat.service';
 import { first } from 'rxjs';
+import { createSocketConnection } from '../../utils/socket';
 
 @Component({
   selector: 'app-chat',
@@ -26,7 +27,7 @@ export class Chat implements  AfterViewInit, OnInit, OnDestroy{
   chatList: any = [];
   newMessage = '';
 
-  socket = io(BASE_URL);
+  socket = createSocketConnection();
 
   @ViewChild("chats")
   private chats!: ElementRef;
