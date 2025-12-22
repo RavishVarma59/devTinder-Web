@@ -59,7 +59,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
                     proxy_set_header Host $host;
                     proxy_cache_bypass $http_upgrade;
                 }
-    - Refresh the nginx : sudo systemctl refresh nginx
+    - Refresh the nginx : sudo systemctl restart nginx | sudo systemctl reload nginx
     - server name : 3.110.183.89
 
         frontend => http://3.110.183.89/ 
