@@ -4,10 +4,11 @@ import { BASE_URL } from '../../utils/constants';
 import { BehaviorSubject, catchError, of, Subject, tap } from 'rxjs';
 import { Card } from '../card/card';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-feed',
-  imports: [Card, CommonModule],
+  imports: [Card, CommonModule,RouterLink],
   templateUrl: './feed.html',
   styleUrl: './feed.css'
 })
@@ -77,6 +78,7 @@ export class Feed implements OnInit {
         this.userCardSubject.next(this.feedData[0]);
       } else {
         this.userCardSubject.next(null);
+        this.getFeedData();
       }
     })
   }

@@ -25,6 +25,8 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 - install nvm node with same version of local project
 - clone git repo
 - FrontEnd
+    - rm -rf node_module package-lock.json
+    - git pull origin main
     - npm i
     - npm run build
     - sudo apt update

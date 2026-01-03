@@ -1,22 +1,69 @@
-<div class="card h-[28rem]  bg-pink-100 w-80 shadow-sm">
-  <figure class="bg-linear-to-bl h-1/2 from-violet-500 to-fuchsia-500">
-    <img *ngIf="photoUrl"
-      src="{{photoUrl}}"
-      alt="User Photo" class="h-full"/>
-  </figure>
-  <!-- <div class="divider"></div> -->
-  <div class="card-body pb-4 h-1/2">
-    <h2 class="card-title text-xl">{{firstName | titlecase}} </h2>
-    <div >
-    <span *ngIf="age" >{{age}} </span>
-    <span *ngIf="gender" >{{gender}}</span>
+<div
+  class="relative w-80 h-[30rem]
+         rounded-3xl overflow-hidden
+         bg-base-100 shadow-xl
+         hover:shadow-2xl transition-all duration-300 mx-auto"
+>
+
+  <!-- IMAGE -->
+  <div class="relative h-3/5 w-full">
+    <img
+      *ngIf="photoUrl"
+      [src]="photoUrl"
+      alt="User Photo"
+      class="h-full w-full object-cover"
+    />
+
+    <!-- Gradient overlay -->
+    <div
+      class="absolute inset-0
+             bg-gradient-to-t from-black/70 via-black/20 to-transparent">
     </div>
 
-    
-    <p *ngIf="about" class="line-clamp-3 text-sm leading-6 text-gray-500 dark:text-gray-400">{{about}}</p>
-    <div class="card-actions justify-end">
-      <button class="btn btn-primary" (click)="actionOnCard('ignore')">Ignore</button>
-      <button class="btn btn-secondary"  (click)="actionOnCard('interested')">Interested</button>
+    <!-- Name + meta -->
+    <div class="absolute bottom-4 left-4 right-4 text-white">
+      <h2 class="text-2xl font-bold leading-tight">
+        {{ firstName | titlecase }}
+      </h2>
+      <p class="text-sm opacity-80">
+        <span *ngIf="age">{{ age }}</span>
+        <span *ngIf="gender"> · {{ gender }}</span>
+      </p>
     </div>
   </div>
+
+  <!-- CONTENT -->
+  <div class="flex flex-col justify-between h-2/5 p-5">
+
+    <p
+      *ngIf="about"
+      class="text-sm text-base-content/70 line-clamp-3 leading-relaxed"
+    >
+      {{ about }}
+    </p>
+
+    <!-- ACTIONS -->
+    <div class="flex justify-center gap-6 mt-4">
+
+      <!-- Ignore -->
+      <button
+        class="btn btn-circle btn-outline btn-error"
+        (click)="actionOnCard('ignore')"
+        title="Ignore"
+      >
+        ✕
+      </button>
+
+      <!-- Interested -->
+      <button
+        class="btn btn-circle btn-primary"
+        (click)="actionOnCard('interested')"
+        title="Interested"
+      >
+        ❤
+      </button>
+
+    </div>
+  </div>
+
 </div>

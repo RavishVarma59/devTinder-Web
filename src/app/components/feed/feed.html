@@ -1,14 +1,61 @@
-<div class="flex justify-center my-10">
-    <ng-container *ngIf="feedData && feedData.length; else allProfileVisited">
-        <card *ngIf="feedData && feedData.length" [firstName]="firstName" [photoUrl]="photoUrl" [about]="about"
-            [age]="age" [gender]="gender" [_id]="_id" (removeCard)="removeCardFromFeed($event)"></card>
-    </ng-container>
+<div
+  class="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center
+         bg-gradient-to-br from-base-200 via-base-100 to-base-200 px-4 mb-16"
+>
 
-    <ng-template #allProfileVisited>
-        <div class="text-center">
-        <div class="font-bold text-2xl text-gray-600">WOW, you have Visited all the Pending User !</div>
-        <p class="my-5">Will come back to you if any new User Come.</p>
-        </div>
+  <!-- Feed Header -->
+  <div class="mb-6 text-center">
+    <h1 class="text-2xl md:text-3xl font-bold">
+      Discover Developers
+    </h1>
+    <p class="text-sm text-base-content/60 mt-1">
+      Swipe, connect, and build something meaningful 🚀
+    </p>
+  </div>
 
-    </ng-template>
+  <!-- Feed Card -->
+  <ng-container *ngIf="feedData && feedData.length; else allProfileVisited">
+
+    <div
+      class="relative w-full max-w-sm transition-all duration-300"
+    >
+      <card
+        [firstName]="firstName"
+        [photoUrl]="photoUrl"
+        [about]="about"
+        [age]="age"
+        [gender]="gender"
+        [_id]="_id"
+        (removeCard)="removeCardFromFeed($event)">
+      </card>
+    </div>
+
+  </ng-container>
+
+  <!-- Empty State -->
+  <ng-template #allProfileVisited>
+    <div
+      class="mt-10 max-w-md text-center bg-base-100/70 backdrop-blur-lg
+             rounded-2xl shadow-xl p-8"
+    >
+      <div class="text-5xl mb-4">🎉</div>
+
+      <h2 class="text-xl font-semibold">
+        You’re all caught up!
+      </h2>
+
+      <p class="text-sm text-base-content/70 mt-2">
+        You’ve explored all available developer profiles.
+        We’ll notify you when new developers join.
+      </p>
+
+      <button
+        class="btn btn-primary btn-sm mt-6"
+        routerLink="/connections"
+      >
+        View Connections
+      </button>
+    </div>
+  </ng-template>
+
 </div>
