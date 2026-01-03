@@ -1,25 +1,81 @@
-<div class="navbar bg-base-100 shadow-sm">
-  <div class="flex-1">
-    <a (click)="goHome($event)" class="btn btn-ghost text-xl">Dev Tinder</a>
-  </div>
-  <div *ngIf="userData" class="flex gap-2 items-center">
-    <div>Welcome, {{userData.firstName | titlecase}}</div>
-    <div class="dropdown dropdown-end mx-5">
-      <div tabindex="0" #dropdownBtn role="button" class="btn btn-ghost btn-circle avatar">
-        <div class="w-10 rounded-full">
-          <img
-            alt="Tailwind CSS Navbar component"
-            [src]="userData.photoUrl" />
+<nav class="sticky top-0 z-50
+         bg-base-100/70 backdrop-blur-md
+         border-b border-base-300/60
+         shadow-sm">
+  <div class="px-4">
+    <div class="flex h-16 items-center justify-between">
+
+      <!-- Brand -->
+      <div class="flex items-center gap-3 cursor-pointer" (click)="goHome($event)">
+        <div class="w-9 h-9 rounded-xl text-primary-content flex items-center justify-center font-bold">
+          <img src="assets/images/namastedev.png" alt="Logo" class="rounded object-contain">
         </div>
+        <span class="text-lg font-semibold tracking-tight hidden sm:block">
+          Namaste<span class="text-primary">Dev</span>
+        </span>
       </div>
-      <ul
-        tabindex="0"
-        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-        >
-        <li *ngFor="let item of profileDropdown" (click)="dropdownItemClicked(item)">
-          <a>{{item.name}}</a>
-        </li>
-      </ul>
+
+      <!-- Right Side -->
+      <div *ngIf="userData" class="flex items-center gap-4">
+
+        <!-- Greeting (desktop only) -->
+        <div class="hidden md:flex flex-col text-right leading-tight">
+          <span class="text-xs text-base-content/60">Welcome back</span>
+          <span class="text-sm font-medium">
+            {{ userData.firstName | titlecase }}
+          </span>
+        </div>
+
+        <!-- Avatar Dropdown -->
+        <div class="dropdown dropdown-end">
+          <label tabindex="0" class="relative cursor-pointer">
+            <div class="w-10 h-10 rounded-full ring-2 ring-primary/30 hover:ring-primary transition">
+              <img
+                [src]="userData.photoUrl"
+                class="w-full h-full object-cover rounded-full"
+                alt="User Avatar"
+              />
+            </div>
+
+            <!-- Online Indicator -->
+            <span class="absolute bottom-0 right-0 w-3 h-3 bg-success rounded-full ring-2 ring-base-100"></span>
+          </label>
+
+          <ul
+            tabindex="0"
+            class="dropdown-content mt-3 w-56 rounded-xl bg-base-100 shadow-xl border border-base-300 p-2"
+          >
+            <!-- Profile header -->
+            <li class="px-3 py-2 mb-1 border-b border-base-200">
+              <p class="text-sm font-medium">
+                {{ userData.firstName | titlecase }}
+              </p>
+              <p class="text-xs text-base-content/60">
+                Developer
+              </p>
+            </li>
+
+            <!-- Menu Items -->
+            <li
+              *ngFor="let item of profileDropdown"
+              (click)="dropdownItemClicked(item)"
+              class="rounded-lg"
+            >
+              <a class="flex justify-between cursor-pointer items-center px-3 py-2 hover:bg-base-200 rounded-lg transition">
+                <span>{{ item.name }}</span>
+
+                <span
+                  *ngIf="item.badge"
+                  class="badge badge-primary badge-sm"
+                >
+                  {{ item.badge }}
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
     </div>
   </div>
-</div>
+</nav>

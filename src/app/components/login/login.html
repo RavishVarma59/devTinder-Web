@@ -1,4 +1,123 @@
-<div class="flex justify-center py-[30px] ">
+<div class="min-h-screen relative overflow-hidden flex items-center justify-center px-4">
+
+  <!-- Animated Gradient Background -->
+  <div
+    class="absolute inset-0
+           bg-gradient-to-br
+           from-primary/15 via-secondary/10 to-accent/15
+           animate-gradient">
+  </div>
+
+
+  <!-- MAIN CARD -->
+  <div
+    class="z-10 max-w-4xl
+           grid md:grid-cols-2
+           bg-base-100/70
+           rounded-3xl
+           shadow-xl/10 hover:shadow-2xl/30
+           transition-all duration-300
+           overflow-hidden -mt-20">
+
+    <!-- LEFT: Branding / Story -->
+    <div class="hidden md:flex flex-col justify-center p-10 bg-primary/5">
+      <h1 class="text-3xl font-bold leading-tight">
+        Welcome to <span class="text-primary">NamasteDev</span>
+      </h1>
+
+      <p class="mt-4 text-base-content/70">
+        A networking platform where developers connect, match, and collaborate.
+      </p>
+
+      <ul class="mt-6 space-y-3 text-sm text-base-content/80">
+        <li class="flex items-center gap-2">
+          <span class="text-primary">✓</span> Connect with like-minded developers
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="text-primary">✓</span> Real-time chat & meaningful matches
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="text-primary">✓</span> Built by developers, for developers
+        </li>
+      </ul>
+    </div>
+
+    <!-- RIGHT: Auth Form -->
+    <div class="p-8 flex flex-col justify-center">
+
+      <h2 class="text-2xl font-semibold text-center">
+        {{ isLoggin ? "Welcome back 👋" : "Create your account 🚀" }}
+      </h2>
+
+      <p class="text-center text-sm text-base-content/60 mt-1">
+        {{ isLoggin
+          ? "Login to continue building connections"
+          : "Join the developer networking platform" }}
+      </p>
+
+      <div class="mt-6 space-y-4">
+
+        <ng-container *ngIf="!isLoggin">
+          <input
+            type="text"
+            required
+            class="input input-bordered placeholder-gray-300 w-full"
+            [(ngModel)]="firstName"
+            placeholder="First Name"
+          />
+
+          <input
+            type="text"
+            class="input input-bordered placeholder-gray-300 w-full"
+            [(ngModel)]="lastName"
+            placeholder="Last Name"
+          />
+        </ng-container>
+
+        <input
+          type="email"
+          class="input input-bordered placeholder-gray-300 w-full"
+          [(ngModel)]="email"
+          placeholder="Email address"
+        />
+
+        <input
+          type="password"
+          class="input input-bordered placeholder-gray-300 w-full"
+          [(ngModel)]="password"
+          (keyup.enter)="submitForm()"
+          placeholder="Password"
+        />
+
+        <p *ngIf="loginError" class="text-sm text-red-500 text-center">
+          {{ loginError }}
+        </p>
+
+        <button
+          class="btn btn-primary w-full mt-2"
+          (click)="submitForm()"
+        >
+          {{ isLoggin ? "Login" : "Sign Up" }}
+        </button>
+
+        <p
+          class="text-center text-sm text-primary cursor-pointer mt-2 hover:underline"
+          (click)="toggleLogin($event)"
+        >
+          {{ !isLoggin
+            ? "Already have an account? Login"
+            : "Don't have an account? Sign up" }}
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<!-- <div class="flex justify-center py-[30px] ">
 <fieldset class="fieldset shadow-lg bg-base-200 border-base-300 rounded-box w-xs border p-4 pt-2">
 
   <h1 class="font-bold text-center text-xl">{{isLoggin ? "Login": "Sign Up"}} </h1>
@@ -28,7 +147,7 @@
     "Don&#x27;t have an account yet? Sign Up Here"}}</p>
 
 </fieldset>
-</div>
+</div> -->
 <!-- 
 <div
     class="relative mx-auto w-full max-w-md bg-white px-6 pt-6 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:rounded-xl sm:px-10">
