@@ -141,3 +141,11 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 # Policy pages
 
     - Created Privacy, Contact us, Terms, Refund, Shipping pages
+
+
+# pending things
+
+    - search functionality
+    - feed page swipe functionality on cards
+    - Implement seo
+    - feed page Better UI

@@ -27,6 +27,7 @@ export class Feed implements OnInit {
 
   userCardSubject = new BehaviorSubject<any>(null);
   removeFeedDataSubject = new Subject<any>();
+  showCard: boolean = true;
 
   constructor(private http: HttpClient) {
 
@@ -66,6 +67,9 @@ export class Feed implements OnInit {
       this.about = res?.about || null;
       this.gender = res?.gender || null;
       this._id = res?._id || null;
+      if(res){
+        this.showCard = true;
+      }
     });
   }
 
@@ -85,7 +89,11 @@ export class Feed implements OnInit {
 
   removeCardFromFeed(id:any){
     if(id){
-      this.removeFeedDataSubject.next(id);
+      this.showCard = false;
+      requestAnimationFrame(()=>{
+        this.removeFeedDataSubject.next(id);
+
+      })
     }
   }
 

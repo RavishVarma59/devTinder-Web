@@ -1,18 +1,45 @@
 <div
   class="relative w-80 h-[30rem]
          rounded-3xl overflow-hidden
-         bg-base-100 shadow-xl
-         hover:shadow-2xl transition-all duration-300 mx-auto"
+         bg-base-100 shadow-xl 
+         hover:shadow-2xl  mx-auto
+         select-none touch-none "
+    [ngClass]="{
+  'transition-none': isDragging,
+  'transition-transform duration-300 ease-out': !isDragging
+}"
+ 
+   [style.transform]="'translateX(' + currentX + 'px) rotate(' + currentX / 18 + 'deg)'"
+   (pointerdown)="onPointerDown($event)"
+    (pointermove)="onPointerMove($event)"
+    (pointerup)="onPointerUp($event)"
+    (pointercancel)="onPointerUp($event)"
 >
 
   <!-- IMAGE -->
-  <div class="relative h-3/5 w-full">
+  <div class="relative h-3/5 w-full cursor-pointer">
     <img
       *ngIf="photoUrl"
       [src]="photoUrl"
       alt="User Photo"
-      class="h-full w-full object-cover"
+      class="h-full w-full object-cover "
     />
+    <div
+  *ngIf="currentX > 40"
+  class="absolute top-6 left-6
+         text-green-400 border-2 border-green-400
+         px-3 py-1 rounded-lg font-bold rotate-[-10deg]">
+  INTERESTED
+</div>
+
+<div
+  *ngIf="currentX < -40"
+  class="absolute top-6 right-6
+         text-red-400 border-2 border-red-400
+         px-3 py-1 rounded-lg font-bold rotate-[10deg]">
+  IGNORE
+</div>
+
 
     <!-- Gradient overlay -->
     <div
@@ -49,6 +76,7 @@
       <button
         class="btn btn-circle btn-outline btn-error"
         (click)="actionOnCard('ignore')"
+        [disabled]="isAnimatingOut"
         title="Ignore"
       >
         ✕
@@ -58,6 +86,7 @@
       <button
         class="btn btn-circle btn-primary"
         (click)="actionOnCard('interested')"
+        [disabled]="isAnimatingOut"
         title="Interested"
       >
         ❤

@@ -6,8 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-navbar',
   imports: [CommonModule, 
-    TitleCasePipe,
-    RouterLink
+    TitleCasePipe
   ],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css'

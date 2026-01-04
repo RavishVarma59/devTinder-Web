@@ -1,6 +1,7 @@
 <div
   class="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center
-         bg-gradient-to-br from-base-200 via-base-100 to-base-200 px-4 mb-16"
+         bg-gradient-to-br from-base-200 via-base-100 to-base-200 px-4 
+         overflow-x-hidden"
 >
 
   <!-- Feed Header -->
@@ -17,9 +18,10 @@
   <ng-container *ngIf="feedData && feedData.length; else allProfileVisited">
 
     <div
-      class="relative w-full max-w-sm transition-all duration-300"
+      class="relative w-full   pb-16"
     >
       <card
+      *ngIf="showCard"
         [firstName]="firstName"
         [photoUrl]="photoUrl"
         [about]="about"
